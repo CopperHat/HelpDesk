@@ -11,9 +11,9 @@ import { TicketService } from 'src/app/_service/ticket.service';
 export class TicketComponent implements OnInit {
 
   dataSource: MatTableDataSource<Ticket>;
-  displayedColumns=['idTicket','nombres','apellidos','acciones'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns = ['id', 'solutionDate', 'problemId', 'priorityId', 'statusId', 'staffId', 'acciones'];
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   cantidad: number;
 
   constructor(private ticketService: TicketService, private snackBar: MatSnackBar) { }
@@ -26,7 +26,7 @@ export class TicketComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.ticketService.mensaje.subscribe(data => {
+    this.ticketService.mensajeCambio.subscribe(data => {
       this.snackBar.open(data, 'Aviso', { duration: 2000 });
     });
 
@@ -38,24 +38,25 @@ export class TicketComponent implements OnInit {
 
     this.ticketService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      let tickets = JSON.parse(JSON.stringify(data)).content;
+      const tickets = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(tickets);
       this.dataSource.sort = this.sort;
     });
   }
 
-  applyFilter(filterValue: string){
-    filterValue=filterValue.trim();
-    filterValue=filterValue.toLowerCase();
-    this.dataSource.filter=filterValue;
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   eliminar(idTicket: number) {
     this.ticketService.eliminar(idTicket).subscribe(data => {
+// tslint:disable-next-line: no-shadowed-variable
       this.ticketService.listar().subscribe(data => {
         this.ticketService.ticketCambio.next(data);
-        this.ticketService.mensaje.next('Se eliminó');
+        this.ticketService.mensajeCambio.next('Se eliminó');
       });
     });
   }
@@ -64,7 +65,7 @@ export class TicketComponent implements OnInit {
     console.log(e);
     this.ticketService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      let tickets = JSON.parse(JSON.stringify(data)).content;
+      const tickets = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(tickets);

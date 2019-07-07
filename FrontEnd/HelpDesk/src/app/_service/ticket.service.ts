@@ -12,12 +12,16 @@ export class TicketService {
 
   url = `${HOST}/tickets`;
   ticketCambio = new Subject<Ticket[]>();
-  mensaje = new Subject<string>();
+  mensajeCambio = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Ticket[]>(this.url);
+  }
+
+  listarPageable(p: number, s: number) {
+    return this.http.get<Ticket[]>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
   listarTicketPorId(id: number) {

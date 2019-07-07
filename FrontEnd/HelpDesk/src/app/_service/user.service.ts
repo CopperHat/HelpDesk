@@ -12,12 +12,16 @@ export class UserService {
 
   url = `${HOST}/users`;
   userCambio = new Subject<User[]>();
-  mensaje = new Subject<string>();
+  mensajeCambio = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<User[]>(this.url);
+  }
+
+  listarPageable(p: number, s: number) {
+    return this.http.get<User[]>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
   listarUserPorId(id: number) {

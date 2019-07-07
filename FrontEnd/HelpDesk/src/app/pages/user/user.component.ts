@@ -11,9 +11,9 @@ import { UserService } from 'src/app/_service/user.service';
 export class UserComponent implements OnInit {
 
   dataSource: MatTableDataSource<User>;
-  displayedColumns=['idUser','nombres','apellidos','acciones'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns = ['id', 'firtsName', 'lastName', 'email', 'password', 'phone', 'userTypeId', 'acciones'];
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   cantidad: number;
 
   constructor(private userService: UserService, private snackBar: MatSnackBar) { }
@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.userService.mensaje.subscribe(data => {
+    this.userService.mensajeCambio.subscribe(data => {
       this.snackBar.open(data, 'Aviso', { duration: 2000 });
     });
 
@@ -38,24 +38,25 @@ export class UserComponent implements OnInit {
 
     this.userService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      let users = JSON.parse(JSON.stringify(data)).content;
+      const users = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(users);
       this.dataSource.sort = this.sort;
     });
   }
 
-  applyFilter(filterValue: string){
-    filterValue=filterValue.trim();
-    filterValue=filterValue.toLowerCase();
-    this.dataSource.filter=filterValue;
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   eliminar(idUser: number) {
     this.userService.eliminar(idUser).subscribe(data => {
+// tslint:disable-next-line: no-shadowed-variable
       this.userService.listar().subscribe(data => {
         this.userService.userCambio.next(data);
-        this.userService.mensaje.next('Se eliminó');
+        this.userService.mensajeCambio.next('Se eliminó');
       });
     });
   }
@@ -64,7 +65,7 @@ export class UserComponent implements OnInit {
     console.log(e);
     this.userService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      let users = JSON.parse(JSON.stringify(data)).content;
+      const users = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(users);

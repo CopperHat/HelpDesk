@@ -1,6 +1,5 @@
 package com.helpdesk.service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.helpdesk.entity.Ticket;

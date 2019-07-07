@@ -11,9 +11,10 @@ import { EquipmentService } from 'src/app/_service/equipment.service';
 export class EquipmentComponent implements OnInit {
 
   dataSource: MatTableDataSource<Equipment>;
-  displayedColumns=['idEquipment','nombres','apellidos','acciones'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+// tslint:disable-next-line: max-line-length
+  displayedColumns = ['id', 'acquisitionDated', 'retirementDate', 'code', 'name', 'description', 'manufactureName', 'otherDetails', 'equipTypeId', 'acciones'];
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   cantidad: number;
 
   constructor(private equipmentService: EquipmentService, private snackBar: MatSnackBar) { }
@@ -26,7 +27,7 @@ export class EquipmentComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.equipmentService.mensaje.subscribe(data => {
+    this.equipmentService.mensajeCambio.subscribe(data => {
       this.snackBar.open(data, 'Aviso', { duration: 2000 });
     });
 
@@ -38,24 +39,25 @@ export class EquipmentComponent implements OnInit {
 
     this.equipmentService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      let equipments = JSON.parse(JSON.stringify(data)).content;
+      const equipments = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(equipments);
       this.dataSource.sort = this.sort;
     });
   }
 
-  applyFilter(filterValue: string){
-    filterValue=filterValue.trim();
-    filterValue=filterValue.toLowerCase();
-    this.dataSource.filter=filterValue;
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   eliminar(idEquipment: number) {
     this.equipmentService.eliminar(idEquipment).subscribe(data => {
+// tslint:disable-next-line: no-shadowed-variable
       this.equipmentService.listar().subscribe(data => {
         this.equipmentService.equipmentCambio.next(data);
-        this.equipmentService.mensaje.next('Se eliminó');
+        this.equipmentService.mensajeCambio.next('Se eliminó');
       });
     });
   }
@@ -64,7 +66,7 @@ export class EquipmentComponent implements OnInit {
     console.log(e);
     this.equipmentService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      let equipments = JSON.parse(JSON.stringify(data)).content;
+      const equipments = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(equipments);

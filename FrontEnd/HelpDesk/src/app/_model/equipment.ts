@@ -1,7 +1,7 @@
 import { EquipType } from './equipType';
 export class Equipment {
   public id: number;
-  public aacquisitionDated: Date;
+  public acquisitionDated: Date;
   public retirementDate: Date;
   public code: string;
   public name: string;

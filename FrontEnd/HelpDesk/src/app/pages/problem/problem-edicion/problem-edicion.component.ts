@@ -13,72 +13,68 @@ export class ProblemEdicionComponent implements OnInit {
 
   id: number;
   form: FormGroup;
-  edicion: boolean = false;
+  edicion = false;
   problem: Problem;
 
-  constructor(private route: ActivatedRoute, private router:Router,
-     private problemService: ProblemService) {
-    this.form=new FormGroup({
-      'id':new FormControl(0),
-      'nombres':new FormControl(''),
-      'apellidos':new FormControl(''),
-      'dni':new FormControl(''),
-      'direccion':new FormControl(''),
-      'telefono':new FormControl('')
+  constructor(private route: ActivatedRoute, private router: Router,
+              private problemService: ProblemService) {
+    this.form = new FormGroup({
+      id: new FormControl(0),
+      reportDate: new FormControl(''),
+      description: new FormControl(''),
+      userId: new FormControl(''),
+      equipId: new FormControl('')
     });
   }
 
   ngOnInit() {
     this.problem = new Problem();
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.edicion = params['id'] != null;
+      this.id = params.id;
+      this.edicion = params.id != null;
       this.initForm();
     });
   }
 
-
   initForm() {
     if (this.edicion) {
-      //cargar la data del servicio en el form
+      // cargar la data del servicio en el form
       this.problemService.listarProblemPorId(this.id).subscribe(data => {
         this.form = new FormGroup({
-          'id': new FormControl(data.id),
-          'nombres': new FormControl(data.nombres),
-          'apellidos': new FormControl(data.apellidos),
-          'dni': new FormControl(data.dni),
-          'direccion': new FormControl(data.direccion),
-          'telefono': new FormControl(data.telefono)
+          id: new FormControl(data.id),
+          reportDate: new FormControl(data.reportDate),
+          description: new FormControl(data.description),
+          userId: new FormControl(data.userId),
+          equipId: new FormControl(data.equipId)
         });
       });
     }
   }
 
-  operar(){
-    this.problem.id=this.form.value['id'];
-    this.problem.nombres=this.form.value['nombres'];
-    this.problem.apellidos=this.form.value['apellidos'];
-    this.problem.dni=this.form.value['dni'];
-    this.problem.direccion=this.form.value['direccion'];
-    this.problem.telefono=this.form.value['telefono'];
+  operar() {
+    this.problem.id = this.form.value.id;
+    this.problem.reportDate = this.form.value.reportDate;
+    this.problem.description = this.form.value.description;
+    this.problem.userId = this.form.value.userId;
+    this.problem.equipId = this.form.value.equipId;
 
-    if(this.edicion){
+    if (this.edicion) {
       this.problemService.modificar(this.problem).subscribe(
-        data=>{
-          this.problemService.listar().subscribe(problems =>{
+        data => {
+          this.problemService.listar().subscribe(problems => {
             this.problemService.problemCambio.next(problems);
             this.problemService.mensajeCambio.next('Se modificó');
-          })
+          });
         }
       );
 
-    }else{
+    } else {
       this.problemService.registrar(this.problem).subscribe(
-        data=>{
-          this.problemService.listar().subscribe(problems =>{
+        data => {
+          this.problemService.listar().subscribe(problems => {
             this.problemService.problemCambio.next(problems);
             this.problemService.mensajeCambio.next('Se registró');
-          })
+          });
         }
       );
     }

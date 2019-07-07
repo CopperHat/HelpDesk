@@ -13,26 +13,29 @@ export class EquipmentEdicionComponent implements OnInit {
 
   id: number;
   form: FormGroup;
-  edicion: boolean = false;
+  edicion = false;
   equipment: Equipment;
 
-  constructor(private route: ActivatedRoute, private router:Router,
-     private equipmentService: EquipmentService) {
-    this.form=new FormGroup({
-      'id':new FormControl(0),
-      'nombres':new FormControl(''),
-      'apellidos':new FormControl(''),
-      'dni':new FormControl(''),
-      'direccion':new FormControl(''),
-      'telefono':new FormControl('')
+  constructor(private route: ActivatedRoute, private router: Router,
+              private equipmentService: EquipmentService) {
+    this.form = new FormGroup({
+      id: new FormControl(0),
+      acquisitionDated: new FormControl(''),
+      retirementDate: new FormControl(''),
+      code: new FormControl(''),
+      name: new FormControl(''),
+      description: new FormControl(''),
+      manufactureName: new FormControl(''),
+      otherDetails: new FormControl(''),
+      equipTypeId: new FormControl('')
     });
   }
 
   ngOnInit() {
     this.equipment = new Equipment();
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.edicion = params['id'] != null;
+      this.id = params.id;
+      this.edicion = params.id != null;
       this.initForm();
     });
   }
@@ -40,45 +43,51 @@ export class EquipmentEdicionComponent implements OnInit {
 
   initForm() {
     if (this.edicion) {
-      //cargar la data del servicio en el form
+      // cargar la data del servicio en el form
       this.equipmentService.listarEquipmentPorId(this.id).subscribe(data => {
         this.form = new FormGroup({
-          'id': new FormControl(data.id),
-          'nombres': new FormControl(data.nombres),
-          'apellidos': new FormControl(data.apellidos),
-          'dni': new FormControl(data.dni),
-          'direccion': new FormControl(data.direccion),
-          'telefono': new FormControl(data.telefono)
+          id: new FormControl(data.id),
+          acquisitionDated: new FormControl(data.acquisitionDated),
+          retirementDate: new FormControl(data.retirementDate),
+          code: new FormControl(data.code),
+          name: new FormControl(data.name),
+          description: new FormControl(data.description),
+          manufactureName: new FormControl(data.manufactureName),
+          otherDetails: new FormControl(data.otherDetails),
+          equipTypeId: new FormControl(data.equipTypeId)
         });
       });
     }
   }
 
-  operar(){
-    this.equipment.id=this.form.value['id'];
-    this.equipment.nombres=this.form.value['nombres'];
-    this.equipment.apellidos=this.form.value['apellidos'];
-    this.equipment.dni=this.form.value['dni'];
-    this.equipment.direccion=this.form.value['direccion'];
-    this.equipment.telefono=this.form.value['telefono'];
+  operar() {
+    this.equipment.id = this.form.value.id;
+    this.equipment.acquisitionDated = this.form.value.acquisitionDated;
+    this.equipment.retirementDate = this.form.value.retirementDate;
+    this.equipment.code = this.form.value.code;
+    this.equipment.name = this.form.value.name;
+    this.equipment.description = this.form.value.description;
+    this.equipment.manufactureName = this.form.value.manufactureName;
+    this.equipment.otherDetails = this.form.value.otherDetails;
+    this.equipment.equipTypeId = this.form.value.equipTypeId;
 
-    if(this.edicion){
+    if (this.edicion) {
       this.equipmentService.modificar(this.equipment).subscribe(
-        data=>{
-          this.equipmentService.listar().subscribe(equipments =>{
+        data => {
+          this.equipmentService.listar().subscribe(equipments => {
             this.equipmentService.equipmentCambio.next(equipments);
             this.equipmentService.mensajeCambio.next('Se modificó');
-          })
+          });
         }
       );
 
-    }else{
+    } else {
       this.equipmentService.registrar(this.equipment).subscribe(
-        data=>{
-          this.equipmentService.listar().subscribe(equipments =>{
+        data => {
+          this.equipmentService.listar().subscribe(equipments => {
             this.equipmentService.equipmentCambio.next(equipments);
             this.equipmentService.mensajeCambio.next('Se registró');
-          })
+          });
         }
       );
     }

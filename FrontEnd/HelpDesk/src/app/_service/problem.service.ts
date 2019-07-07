@@ -12,12 +12,16 @@ export class ProblemService {
 
   url = `${HOST}/problems`;
   problemCambio = new Subject<Problem[]>();
-  mensaje = new Subject<string>();
+  mensajeCambio = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Problem[]>(this.url);
+  }
+
+  listarPageable(p: number, s: number) {
+    return this.http.get<Problem[]>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
   listarProblemPorId(id: number) {

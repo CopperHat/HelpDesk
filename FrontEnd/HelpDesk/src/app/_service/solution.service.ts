@@ -12,12 +12,16 @@ export class SolutionService {
 
   url = `${HOST}/solutions`;
   solutionCambio = new Subject<Solution[]>();
-  mensaje = new Subject<string>();
+  mensajeCambio = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Solution[]>(this.url);
+  }
+
+  listarPageable(p: number, s: number) {
+    return this.http.get<Solution[]>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
   listarSolutionPorId(id: number) {

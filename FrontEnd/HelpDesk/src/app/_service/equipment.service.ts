@@ -12,12 +12,16 @@ export class EquipmentService {
 
   url = `${HOST}/equipments`;
   equipmentCambio = new Subject<Equipment[]>();
-  mensaje = new Subject<string>();
+  mensajeCambio = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Equipment[]>(this.url);
+  }
+
+  listarPageable(p: number, s: number) {
+    return this.http.get<Equipment[]>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
   listarEquipmentPorId(id: number) {

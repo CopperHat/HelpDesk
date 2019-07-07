@@ -12,12 +12,16 @@ export class StaffService {
 
   url = `${HOST}/staffs`;
   staffCambio = new Subject<Staff[]>();
-  mensaje = new Subject<string>();
+  mensajeCambio = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Staff[]>(this.url);
+  }
+
+  listarPageable(p: number, s: number) {
+    return this.http.get<Staff[]>(`${this.url}/pageable?page=${p}&size=${s}`);
   }
 
   listarStaffPorId(id: number) {

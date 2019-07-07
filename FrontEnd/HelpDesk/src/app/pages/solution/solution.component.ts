@@ -11,9 +11,9 @@ import { SolutionService } from 'src/app/_service/solution.service';
 export class SolutionComponent implements OnInit {
 
   dataSource: MatTableDataSource<Solution>;
-  displayedColumns=['idSolution','nombres','apellidos','acciones'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns = ['id', 'description', 'ticketId', 'acciones'];
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
   cantidad: number;
 
   constructor(private solutionService: SolutionService, private snackBar: MatSnackBar) { }
@@ -26,7 +26,7 @@ export class SolutionComponent implements OnInit {
       this.dataSource.sort = this.sort;
     });
 
-    this.solutionService.mensaje.subscribe(data => {
+    this.solutionService.mensajeCambio.subscribe(data => {
       this.snackBar.open(data, 'Aviso', { duration: 2000 });
     });
 
@@ -38,24 +38,25 @@ export class SolutionComponent implements OnInit {
 
     this.solutionService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      let solutions = JSON.parse(JSON.stringify(data)).content;
+      const solutions = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(solutions);
       this.dataSource.sort = this.sort;
     });
   }
 
-  applyFilter(filterValue: string){
-    filterValue=filterValue.trim();
-    filterValue=filterValue.toLowerCase();
-    this.dataSource.filter=filterValue;
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   eliminar(idSolution: number) {
     this.solutionService.eliminar(idSolution).subscribe(data => {
+// tslint:disable-next-line: no-shadowed-variable
       this.solutionService.listar().subscribe(data => {
         this.solutionService.solutionCambio.next(data);
-        this.solutionService.mensaje.next('Se eliminó');
+        this.solutionService.mensajeCambio.next('Se eliminó');
       });
     });
   }
@@ -64,7 +65,7 @@ export class SolutionComponent implements OnInit {
     console.log(e);
     this.solutionService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      let solutions = JSON.parse(JSON.stringify(data)).content;
+      const solutions = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(solutions);

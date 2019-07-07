@@ -13,26 +13,26 @@ export class TicketEdicionComponent implements OnInit {
 
   id: number;
   form: FormGroup;
-  edicion: boolean = false;
+  edicion = false;
   ticket: Ticket;
 
-  constructor(private route: ActivatedRoute, private router:Router,
-     private ticketService: TicketService) {
-    this.form=new FormGroup({
-      'id':new FormControl(0),
-      'nombres':new FormControl(''),
-      'apellidos':new FormControl(''),
-      'dni':new FormControl(''),
-      'direccion':new FormControl(''),
-      'telefono':new FormControl('')
+  constructor(private route: ActivatedRoute, private router: Router,
+              private ticketService: TicketService) {
+    this.form = new FormGroup({
+      id: new FormControl(0),
+      solutionDate: new FormControl(''),
+      problemId: new FormControl(''),
+      priorityId: new FormControl(''),
+      statusId: new FormControl(''),
+      staffId: new FormControl('')
     });
   }
 
   ngOnInit() {
     this.ticket = new Ticket();
     this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.edicion = params['id'] != null;
+      this.id = params.id;
+      this.edicion = params.id != null;
       this.initForm();
     });
   }
@@ -40,45 +40,45 @@ export class TicketEdicionComponent implements OnInit {
 
   initForm() {
     if (this.edicion) {
-      //cargar la data del servicio en el form
+      // cargar la data del servicio en el form
       this.ticketService.listarTicketPorId(this.id).subscribe(data => {
         this.form = new FormGroup({
-          'id': new FormControl(data.id),
-          'nombres': new FormControl(data.nombres),
-          'apellidos': new FormControl(data.apellidos),
-          'dni': new FormControl(data.dni),
-          'direccion': new FormControl(data.direccion),
-          'telefono': new FormControl(data.telefono)
+          id: new FormControl(data.id),
+          solutionDate: new FormControl(data.solutionDate),
+          problemId: new FormControl(data.problemId),
+          priorityId: new FormControl(data.priorityId),
+          statusId: new FormControl(data.statusId),
+          staffId: new FormControl(data.staffId)
         });
       });
     }
   }
 
-  operar(){
-    this.ticket.id=this.form.value['id'];
-    this.ticket.nombres=this.form.value['nombres'];
-    this.ticket.apellidos=this.form.value['apellidos'];
-    this.ticket.dni=this.form.value['dni'];
-    this.ticket.direccion=this.form.value['direccion'];
-    this.ticket.telefono=this.form.value['telefono'];
+  operar() {
+    this.ticket.id = this.form.value.id;
+    this.ticket.solutionDate = this.form.value.solutionDate;
+    this.ticket.problemId = this.form.value.problemId;
+    this.ticket.priorityId = this.form.value.priorityId;
+    this.ticket.statusId = this.form.value.statusId;
+    this.ticket.staffId = this.form.value.staffId;
 
-    if(this.edicion){
+    if (this.edicion) {
       this.ticketService.modificar(this.ticket).subscribe(
-        data=>{
-          this.ticketService.listar().subscribe(tickets =>{
+        data => {
+          this.ticketService.listar().subscribe(tickets => {
             this.ticketService.ticketCambio.next(tickets);
             this.ticketService.mensajeCambio.next('Se modificó');
-          })
+          });
         }
       );
 
-    }else{
+    } else {
       this.ticketService.registrar(this.ticket).subscribe(
-        data=>{
-          this.ticketService.listar().subscribe(tickets =>{
+        data => {
+          this.ticketService.listar().subscribe(tickets => {
             this.ticketService.ticketCambio.next(tickets);
             this.ticketService.mensajeCambio.next('Se registró');
-          })
+          });
         }
       );
     }

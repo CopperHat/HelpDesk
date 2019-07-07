@@ -5,7 +5,7 @@
           <mat-icon *ngIf="sidenav.opened">close</mat-icon>
       </button>
 
-      <h1 class="example-app-name">Hospital</h1>
+      <h1 class="example-app-name">HelpDesk</h1>
 
       <span class="example-spacer"></span>
 
@@ -33,39 +33,34 @@
               <span>Buscar</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/consulta" style="cursor: pointer" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/equipment" style="cursor: pointer" >
               <mat-icon>insert_drive_file</mat-icon>
-              <span>Registrar</span>
+              <span>Equipos</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/consulta-especial" style="cursor: pointer" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/problem" style="cursor: pointer" >
               <mat-icon>insert_drive_file</mat-icon>
-              <span>Registrar E.</span>
+              <span>Problemas</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/especialidad" style="cursor: pointer" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/solution" style="cursor: pointer" >
               <mat-icon>star_rate</mat-icon>
-              <span>Especialidades</span>
+              <span>Solucion</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/medico" style="cursor: pointer" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/staff" style="cursor: pointer" >
               <mat-icon>healing</mat-icon>
-              <span>Médicos</span>
+              <span>Staff</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/examen" style="cursor: pointer" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/ticket" style="cursor: pointer" >
               <mat-icon>assignment</mat-icon>
-              <span>Examenes</span>
+              <span>Ticket</span>
           </button>
           <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/paciente" style="cursor: pointer" >
+          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/user" style="cursor: pointer" >
               <mat-icon>accessibility</mat-icon>
-              <span>Pacientes</span>
-          </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/reporte" style="cursor: pointer" >
-              <mat-icon>assessment</mat-icon>
-              <span>Reportes</span>
+              <span>Usuarios</span>
           </button>
       </mat-sidenav>
 
