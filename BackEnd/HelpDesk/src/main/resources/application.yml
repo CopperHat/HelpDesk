@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    password: admin
-    url: jdbc:postgresql://localhost/helpdeskdb
-    username: postgres
+    password: 6c88e11d80f7c9ea62fde43d8f8dadd5df0020caa05fa178cfb30f5795410d46
+    url: jdbc:postgresql://ec2-54-83-1-101.compute-1.amazonaws.com:5432/d44d3ooaaevb0s
+    username: izoxyujpsqwerq
   jpa:
     database: POSTGRESQL
     hibernate:
