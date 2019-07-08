@@ -1,4 +1,4 @@
-<mat-toolbar>Solutions</mat-toolbar>
+<mat-toolbar>Soluciones</mat-toolbar>
 
 <div class="example-container mat-elevation-z8">
 
@@ -6,24 +6,24 @@
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar solution">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar soluciones">
     </mat-form-field>
   </div>
 
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="idSolution">
+    <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="nombres">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.nombres}}</mat-cell>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.description}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apellidos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
+    <ng-container matColumnDef="ticketId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ticket </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.ticketId}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

@@ -11,7 +11,7 @@ import { UserService } from 'src/app/_service/user.service';
 export class UserComponent implements OnInit {
 
   dataSource: MatTableDataSource<User>;
-  displayedColumns = ['id', 'firtsName', 'lastName', 'email', 'password', 'phone', 'userTypeId', 'acciones'];
+  displayedColumns = ['id', 'firtsName', 'lastName', 'email', 'phone', 'userTypeId', 'acciones'];
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   cantidad: number;

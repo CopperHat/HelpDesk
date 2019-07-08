@@ -1,4 +1,4 @@
-<mat-toolbar>Equipments</mat-toolbar>
+<mat-toolbar>Equipos</mat-toolbar>
 
 <div class="example-container mat-elevation-z8">
 
@@ -6,24 +6,54 @@
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar equipment">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar equipos">
     </mat-form-field>
   </div>
 
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="idEquipment">
+    <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="nombres">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.nombres}}</mat-cell>
+    <ng-container matColumnDef="acquisitionDated">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Adquisicion </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.acquisitionDated}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apellidos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
+    <ng-container matColumnDef="retirementDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Retiro </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.retirementDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="code">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.code}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="manufactureName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Manufactura </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.manufactureName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="otherDetails">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Otros </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.otherDetails}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="equipTypeId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.equipTypeId.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

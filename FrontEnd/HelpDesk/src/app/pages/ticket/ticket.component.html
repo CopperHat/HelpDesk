@@ -6,24 +6,39 @@
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar ticket">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar tickets">
     </mat-form-field>
   </div>
 
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="idTicket">
+    <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="nombres">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.nombres}}</mat-cell>
+    <ng-container matColumnDef="solutionDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.solutionDate}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apellidos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
+    <ng-container matColumnDef="problemId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Problema </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.problemId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="priorityId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Prioridad </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.priorityId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="statusId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.statusId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="staffId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Staff </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.staffId}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

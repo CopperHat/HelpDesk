@@ -29,7 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/problems")
+@RequestMapping("/problems")
 @Api(value = "REST service for problems")
 public class ProblemController {
 

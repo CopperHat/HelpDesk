@@ -27,19 +27,13 @@
 
   <mat-sidenav-container class="example-sidenav-container" >
       <mat-sidenav #sidenav mode="side" style="width: 200px" >
-
-          <button mat-menu-item (click)="sidenav.toggle()" routerLink="/buscar" style="cursor: pointer" >
-              <mat-icon>search</mat-icon>
-              <span>Buscar</span>
-          </button>
-          <mat-divider></mat-divider>
           <button mat-menu-item (click)="sidenav.toggle()" routerLink="/equipment" style="cursor: pointer" >
-              <mat-icon>insert_drive_file</mat-icon>
+              <mat-icon>computer</mat-icon>
               <span>Equipos</span>
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="sidenav.toggle()" routerLink="/problem" style="cursor: pointer" >
-              <mat-icon>insert_drive_file</mat-icon>
+              <mat-icon>healing</mat-icon>
               <span>Problemas</span>
           </button>
           <mat-divider></mat-divider>
@@ -49,12 +43,12 @@
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="sidenav.toggle()" routerLink="/staff" style="cursor: pointer" >
-              <mat-icon>healing</mat-icon>
+              <mat-icon>assignment</mat-icon>
               <span>Staff</span>
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="sidenav.toggle()" routerLink="/ticket" style="cursor: pointer" >
-              <mat-icon>assignment</mat-icon>
+              <mat-icon>insert_drive_file</mat-icon>
               <span>Ticket</span>
           </button>
           <mat-divider></mat-divider>

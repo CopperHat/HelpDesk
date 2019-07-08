@@ -1,4 +1,4 @@
-<mat-toolbar>Problems</mat-toolbar>
+<mat-toolbar>Problemas</mat-toolbar>
 
 <div class="example-container mat-elevation-z8">
 
@@ -6,24 +6,34 @@
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar problem">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar problemas">
     </mat-form-field>
   </div>
 
   <mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="idProblem">
+    <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="nombres">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.nombres}}</mat-cell>
+    <ng-container matColumnDef="reportDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Reporte </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.reportDate}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="apellidos">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Descripcion </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="userId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.userId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="equipId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Equipo </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.equipId}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

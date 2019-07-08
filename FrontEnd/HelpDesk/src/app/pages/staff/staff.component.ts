@@ -11,7 +11,7 @@ import { StaffService } from 'src/app/_service/staff.service';
 export class StaffComponent implements OnInit {
 
   dataSource: MatTableDataSource<Staff>;
-  displayedColumns = ['id', 'firtsName', 'lastName', 'phone', 'email', 'password', 'joinDate', 'leftDate', 'maxTicket', 'acciones'];
+  displayedColumns = ['id', 'firtsName', 'lastName', 'phone', 'email', 'joinDate', 'leftDate', 'maxTicket', 'acciones'];
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   cantidad: number;

@@ -1,4 +1,4 @@
-<mat-card>Ingrese los datos del equipment</mat-card>
+<mat-card>Ingrese los datos del Equipo</mat-card>
 
 <br>
 
@@ -12,25 +12,36 @@
   </div>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Nombres" required formControlName="nombres">
+    <input matInput placeholder="Fecha de Adquisicion" required formControlName="acquisitionDated" type="Date">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Apellidos" required formControlName="apellidos">
+    <input matInput placeholder="Fecha de Retiro" required formControlName="retirementDate" type="Date">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="DNI" required formControlName="dni" type="number">
+    <input matInput placeholder="Code" required formControlName="code">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Dirección" required formControlName="direccion">
+    <input matInput placeholder="Nombre" required formControlName="name">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Teléfono" required formControlName="telefono" type="number" >
+    <input matInput placeholder="Descripcion" required formControlName="description">
   </mat-form-field>
 
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Manufactura" required formControlName="manufactureName">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Otros Detalles" required formControlName="otherDetails">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Tipo de Equipo" required formControlName="equipTypeId">
+  </mat-form-field>
 
   <!-- <button mat-raised-button color="primary" type="submit" [disabled]="frmEquipment.invalid">-->
   <button mat-raised-button color="primary" type="submit" >
