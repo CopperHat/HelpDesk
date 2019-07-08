@@ -1,13 +1,14 @@
 package com.helpdesk.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +37,6 @@ public class SolutionController {
 	@Autowired
 	private SolutionService solutionService;
 
-	@ApiOperation("Return list of solutions")
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Solution>> findAll() {
-
-		List<Solution> solutions = new ArrayList<>();
-		solutions = solutionService.findAll();
-		return new ResponseEntity<List<Solution>>(solutions, HttpStatus.OK);
-	}
-
 	@ApiOperation("Return solution by id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Solution> findById(@PathVariable("id") Integer id) {
@@ -55,17 +47,20 @@ public class SolutionController {
 
 		return new ResponseEntity<Solution>(solution.get(), HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/pageable", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<Solution>> listarPageable(Pageable pageable){
+		Page<Solution> solutions;
+		solutions = solutionService.listarPageable(pageable);
+		return new ResponseEntity<Page<Solution>>(solutions, HttpStatus.OK);
+	}
 
-	@ApiOperation("Save solution")
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> save(@Valid @RequestBody Solution solution) {
-		Solution solut = new Solution();
-		solut = solutionService.save(solution);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(solut.getId())
-				.toUri();
-
-		return ResponseEntity.created(location).build();
+	@PostMapping
+	public ResponseEntity<Solution> registrar(@Valid @RequestBody Solution solution){
+		Solution solutionNew = new Solution();
+		solutionNew = solutionService.registrar(solution);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(solutionNew.getId()).toUri();
+		return ResponseEntity.created(location).build();		
 	}
 
 	@ApiOperation("Update solution")

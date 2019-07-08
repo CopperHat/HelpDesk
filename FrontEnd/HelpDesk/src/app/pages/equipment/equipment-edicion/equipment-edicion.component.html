@@ -39,8 +39,13 @@
     <input matInput placeholder="Otros Detalles" required formControlName="otherDetails">
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Tipo de Equipo" required formControlName="equipTypeId">
+  <mat-form-field>
+    <mat-label>Tipo de Equipo</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let equipType of equipTypes" [value]="equipType.id">
+        {{equipType.descripcion}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <!-- <button mat-raised-button color="primary" type="submit" [disabled]="frmEquipment.invalid">-->

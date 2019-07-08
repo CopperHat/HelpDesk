@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,19 +18,10 @@ public class ProblemServiceImpl implements ProblemService {
 
 	@Autowired
 	private ProblemRepository problemRepository;
-
-	@Transactional(readOnly = true)
+	
 	@Override
-	public List<Problem> findAll() {
-
-		return problemRepository.findAll();
-	}
-
-	@Transactional
-	@Override
-	public Problem save(Problem p) {
-
-		return problemRepository.save(p);
+	public Problem registrar(Problem t) {		
+		return problemRepository.save(t);
 	}
 
 	@Transactional
@@ -59,11 +52,16 @@ public class ProblemServiceImpl implements ProblemService {
 	public List<Problem> findByIdUser(int id) {
 		return problemRepository.findByIdUser(id);
 	}
-
-	@Transactional(readOnly = true)
+	
 	@Override
-	public List<Problem> findByIdEquipment(int id) {
-		return problemRepository.findByIdEquipment(id);
+	public List<Problem> findByIdProblem(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	//TODO
+		@Override
+		public Page<Problem> listarPageable(Pageable pageable) {
+			return problemRepository.findAll(pageable);
+		}	
 }

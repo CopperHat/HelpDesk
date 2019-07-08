@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,17 +18,10 @@ public class EquipmentServiceImpl implements EquipmentService {
 
 	@Autowired
 	private EquipmentRepository equipmentRepository;
-
-	@Transactional(readOnly = true)
+	
 	@Override
-	public List<Equipment> findAll() {
-		return equipmentRepository.findAll();
-	}
-
-	@Transactional
-	@Override
-	public Equipment save(Equipment e) {
-		return equipmentRepository.save(e);
+	public Equipment registrar(Equipment t) {		
+		return equipmentRepository.save(t);
 	}
 
 	@Transactional
@@ -58,5 +53,11 @@ public class EquipmentServiceImpl implements EquipmentService {
 	public List<Equipment> finByIdEquipmentType(int id) {
 		return equipmentRepository.findByIdEquipmentType(id);
 	}
+	
+	//TODO
+		@Override
+		public Page<Equipment> listarPageable(Pageable pageable) {
+			return equipmentRepository.findAll(pageable);
+		}
 
 }

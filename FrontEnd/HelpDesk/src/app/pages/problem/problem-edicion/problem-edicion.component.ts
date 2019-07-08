@@ -16,6 +16,7 @@ export class ProblemEdicionComponent implements OnInit {
   edicion = false;
   problem: Problem;
 
+
   constructor(private route: ActivatedRoute, private router: Router,
               private problemService: ProblemService) {
     this.form = new FormGroup({

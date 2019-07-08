@@ -28,12 +28,12 @@
 
     <ng-container matColumnDef="userId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.userId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.userId.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="equipId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Equipo </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.equipId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.equipId.name}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

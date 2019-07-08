@@ -1,13 +1,14 @@
 package com.helpdesk.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +37,6 @@ public class EquipmentController {
 	@Autowired
 	private EquipmentService equipmentService;
 
-	@ApiOperation("Return list of equipments")
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Equipment>> findAll() {
-
-		List<Equipment> equipments = new ArrayList<>();
-		equipments = equipmentService.findAll();
-		return new ResponseEntity<List<Equipment>>(equipments, HttpStatus.OK);
-	}
-	
 	@ApiOperation("Return equipment by id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Equipment> findById(@PathVariable("id") Integer id) {
@@ -56,16 +48,19 @@ public class EquipmentController {
 		return new ResponseEntity<Equipment>(equipment.get(), HttpStatus.OK);
 	}
 	
-	@ApiOperation("Save equipment")
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> save(@Valid @RequestBody Equipment equipment) {
-		Equipment equip = new Equipment();
-		equip = equipmentService.save(equipment);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(equip.getId())
-				.toUri();
-
-		return ResponseEntity.created(location).build();
+	@GetMapping(value="/pageable", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<Equipment>> listarPageable(Pageable pageable){
+		Page<Equipment> equipments;
+		equipments = equipmentService.listarPageable(pageable);
+		return new ResponseEntity<Page<Equipment>>(equipments, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Equipment> registrar(@Valid @RequestBody Equipment equipment){
+		Equipment equipmentNew = new Equipment();
+		equipmentNew = equipmentService.registrar(equipment);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(equipmentNew.getId()).toUri();
+		return ResponseEntity.created(location).build();		
 	}
 	
 	@ApiOperation("Update equipment")

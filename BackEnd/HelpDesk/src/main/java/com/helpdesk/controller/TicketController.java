@@ -1,13 +1,14 @@
 package com.helpdesk.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +37,6 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 
-	@ApiOperation("Return list of tickets")
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Ticket>> findAll() {
-
-		List<Ticket> tickets = new ArrayList<>();
-		tickets = ticketService.findAll();
-		return new ResponseEntity<List<Ticket>>(tickets, HttpStatus.OK);
-	}
-
 	@ApiOperation("Return ticket by id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Ticket> findById(@PathVariable("id") Integer id) {
@@ -55,17 +47,20 @@ public class TicketController {
 
 		return new ResponseEntity<Ticket>(ticket.get(), HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/pageable", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<Ticket>> listarPageable(Pageable pageable){
+		Page<Ticket> tickets;
+		tickets = ticketService.listarPageable(pageable);
+		return new ResponseEntity<Page<Ticket>>(tickets, HttpStatus.OK);
+	}
 
-	@ApiOperation("Save ticket")
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> save(@Valid @RequestBody Ticket ticket) {
-		Ticket tick = new Ticket();
-		tick = ticketService.save(ticket);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tick.getId())
-				.toUri();
-
-		return ResponseEntity.created(location).build();
+	@PostMapping
+	public ResponseEntity<Ticket> registrar(@Valid @RequestBody Ticket ticket){
+		Ticket ticketNew = new Ticket();
+		ticketNew = ticketService.registrar(ticket);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ticketNew.getId()).toUri();
+		return ResponseEntity.created(location).build();		
 	}
 
 	@ApiOperation("Update ticket")

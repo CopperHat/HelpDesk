@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,18 +18,10 @@ public class StaffServiceImpl implements StaffService {
 
 	@Autowired
 	private StaffRepository staffRepository;
-
-	@Transactional(readOnly = true)
+	
 	@Override
-	public List<Staff> findAll() {
-		return staffRepository.findAll();
-	}
-
-	@Transactional
-	@Override
-	public Staff save(Staff s) {
-
-		return staffRepository.save(s);
+	public Staff registrar(Staff t) {		
+		return staffRepository.save(t);
 	}
 
 	@Transactional
@@ -60,6 +54,11 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public List<Staff> findBySkill(int id){
 		return staffRepository.findBySkill(id);
+	}
+
+	@Override
+	public Page<Staff> listarPageable(Pageable pageable) {
+		return staffRepository.findAll(pageable);
 	}
 
 }

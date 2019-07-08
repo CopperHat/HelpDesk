@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +19,9 @@ public class SolutionServiceImpl implements SolutionService {
 	@Autowired
 	private SolutionRepository solutionRepository;
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<Solution> findAll() {
-		return solutionRepository.findAll();
-	}
-
-	@Transactional
-	@Override
-	public Solution save(Solution s) {
-		return solutionRepository.save(s);
+	public Solution registrar(Solution t) {		
+		return solutionRepository.save(t);
 	}
 
 	@Transactional
@@ -58,5 +53,11 @@ public class SolutionServiceImpl implements SolutionService {
 	public List<Solution> findByIdTicket(int id) {
 		return solutionRepository.findByIdTicket(id);
 	}
+
+	//TODO
+		@Override
+		public Page<Solution> listarPageable(Pageable pageable) {
+			return solutionRepository.findAll(pageable);
+		}
 
 }

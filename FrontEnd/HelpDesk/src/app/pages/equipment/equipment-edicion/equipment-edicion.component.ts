@@ -1,3 +1,4 @@
+import { EquipType } from './../../../_model/equipType';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Equipment } from 'src/app/_model/equipment';
@@ -15,6 +16,12 @@ export class EquipmentEdicionComponent implements OnInit {
   form: FormGroup;
   edicion = false;
   equipment: Equipment;
+
+  equipType: EquipType[] = [
+    {id: 1, description: 'Computadora'},
+    {id: 2, description: 'Laptop'},
+    {id: 3, description: 'Ipad'}
+  ];
 
   constructor(private route: ActivatedRoute, private router: Router,
               private equipmentService: EquipmentService) {

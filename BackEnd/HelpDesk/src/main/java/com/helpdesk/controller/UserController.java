@@ -1,13 +1,14 @@
 package com.helpdesk.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +37,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@ApiOperation("Return list of users")
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<User>> findAll() {
-
-		List<User> users = new ArrayList<>();
-		users = userService.findAll();
-		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-	}
-
 	@ApiOperation("Return user by id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable("id") Integer id) {
@@ -55,17 +47,20 @@ public class UserController {
 
 		return new ResponseEntity<User>(user.get(), HttpStatus.OK);
 	}
+	
+	@GetMapping(value="/pageable", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<User>> listarPageable(Pageable pageable){
+		Page<User> users;
+		users = userService.listarPageable(pageable);
+		return new ResponseEntity<Page<User>>(users, HttpStatus.OK);
+	}
 
-	@ApiOperation("Save user")
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> save(@Valid @RequestBody User user) {
-		User usr = new User();
-		usr = userService.save(user);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usr.getId())
-				.toUri();
-
-		return ResponseEntity.created(location).build();
+	@PostMapping
+	public ResponseEntity<User> registrar(@Valid @RequestBody User user){
+		User userNew = new User();
+		userNew = userService.registrar(user);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userNew.getId()).toUri();
+		return ResponseEntity.created(location).build();		
 	}
 
 	@ApiOperation("Update user")

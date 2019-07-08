@@ -38,7 +38,7 @@
 
     <ng-container matColumnDef="userTypeId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.userTypeId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.userTypeId.descripcion}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

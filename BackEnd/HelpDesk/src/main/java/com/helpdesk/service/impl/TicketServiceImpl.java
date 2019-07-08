@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,18 +18,12 @@ public class TicketServiceImpl implements TicketService {
 
 	@Autowired
 	private TicketRepository ticketRepository;
-
-	@Transactional(readOnly = true)
+	
 	@Override
-	public List<Ticket> findAll() {
-		return ticketRepository.findAll();
-	}
-
-	@Transactional
-	@Override
-	public Ticket save(Ticket t) {
+	public Ticket registrar(Ticket t) {		
 		return ticketRepository.save(t);
 	}
+
 
 	@Transactional
 	@Override
@@ -82,6 +78,12 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public List<Ticket> findByIdUser(int id){
 		return ticketRepository.findByIdUser(id);
+	}
+
+	@Override
+	public Page<Ticket> listarPageable(Pageable pageable) {
+		return ticketRepository.findAll(pageable);
+
 	}
 	
 	/**@Transactional(readOnly = true)

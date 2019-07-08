@@ -1,13 +1,14 @@
 package com.helpdesk.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,15 +37,6 @@ public class ProblemController {
 	@Autowired
 	private ProblemService problemService;
 	
-	@ApiOperation("Return list of problems")
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Problem>> findAll() {
-
-		List<Problem> problems = new ArrayList<>();
-		problems = problemService.findAll();
-		return new ResponseEntity<List<Problem>>(problems, HttpStatus.OK);
-	}
-	
 	@ApiOperation("Return problem by id")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Problem> findById(@PathVariable("id") Integer id) {
@@ -56,16 +48,19 @@ public class ProblemController {
 		return new ResponseEntity<Problem>(problem.get(), HttpStatus.OK);
 	}
 	
-	@ApiOperation("Save a problem")
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> save(@Valid @RequestBody Problem problem) {
-		Problem probl = new Problem();
-		probl = problemService.save(problem);
-
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(probl.getId())
-				.toUri();
-
-		return ResponseEntity.created(location).build();
+	@GetMapping(value="/pageable", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Page<Problem>> listarPageable(Pageable pageable){
+		Page<Problem> problems;
+		problems = problemService.listarPageable(pageable);
+		return new ResponseEntity<Page<Problem>>(problems, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Problem> registrar(@Valid @RequestBody Problem problem){
+		Problem problemNew = new Problem();
+		problemNew = problemService.registrar(problem);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(problemNew.getId()).toUri();
+		return ResponseEntity.created(location).build();		
 	}
 
 	@ApiOperation("Update problem")
@@ -97,9 +92,9 @@ public class ProblemController {
 	
 	@ApiOperation("Return user by equipement id")
 	@GetMapping(value = "/equip/{id}")
-	public ResponseEntity<List<Problem>> findByIdEquipment(@PathVariable("id") Integer id){
+	public ResponseEntity<List<Problem>> findByIdProblem(@PathVariable("id") Integer id){
 		
-		List<Problem> probl = problemService.findByIdEquipment(id);
+		List<Problem> probl = problemService.findByIdProblem(id);
 		return new ResponseEntity<List<Problem>>(probl,HttpStatus.OK);
 	}
 	

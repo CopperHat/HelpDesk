@@ -18,7 +18,7 @@
 
     <ng-container matColumnDef="acquisitionDated">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Adquisicion </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.acquisitionDated}}</mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.acquisitionDate}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="retirementDate">
@@ -53,7 +53,7 @@
 
     <ng-container matColumnDef="equipTypeId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.equipTypeId.description}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.equipTypeId.descripcion}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">

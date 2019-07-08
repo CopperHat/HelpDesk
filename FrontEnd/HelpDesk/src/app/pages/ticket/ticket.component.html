@@ -23,22 +23,22 @@
 
     <ng-container matColumnDef="problemId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Problema </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.problemId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.problemId.description}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priorityId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Prioridad </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.priorityId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.priorityId.descripcion}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="statusId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.statusId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.statusId.descripcion}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="staffId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Staff </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.staffId}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.staffId.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="acciones">
