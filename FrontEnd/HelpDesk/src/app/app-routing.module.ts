@@ -12,6 +12,8 @@ import { TicketComponent } from './pages/ticket/ticket.component';
 import { TicketEdicionComponent } from './pages/ticket/ticket-edicion/ticket-edicion.component';
 import { UserComponent } from './pages/user/user.component';
 import { UserEdicionComponent } from './pages/user/user-edicion/user-edicion.component';
+import { LoginComponent } from './pages/login/login.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 
 const routes: Routes = [
@@ -39,6 +41,8 @@ const routes: Routes = [
     {path: 'nuevo', component: UserEdicionComponent},
     {path: 'edicion/:id', component: UserEdicionComponent}
   ]},
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
 ];
 
 @NgModule({

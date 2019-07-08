@@ -10,7 +10,7 @@ import { Equipment } from '../_model/equipment';
 })
 export class EquipmentService {
 
-  url = `${HOST}/equipments`;
+  url = `${HOST}/equipments/`;
   equipmentCambio = new Subject<Equipment[]>();
   mensajeCambio = new Subject<string>();
 

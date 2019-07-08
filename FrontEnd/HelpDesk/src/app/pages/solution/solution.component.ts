@@ -38,7 +38,8 @@ export class SolutionComponent implements OnInit {
 
     this.solutionService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      const solutions = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let solutions = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(solutions);
       this.dataSource.sort = this.sort;
@@ -65,7 +66,8 @@ export class SolutionComponent implements OnInit {
     console.log(e);
     this.solutionService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      const solutions = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let solutions = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(solutions);

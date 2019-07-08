@@ -39,7 +39,8 @@ export class EquipmentComponent implements OnInit {
 
     this.equipmentService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      const equipments = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let equipments = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(equipments);
       this.dataSource.sort = this.sort;
@@ -66,7 +67,8 @@ export class EquipmentComponent implements OnInit {
     console.log(e);
     this.equipmentService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      const equipments = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let equipments = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(equipments);

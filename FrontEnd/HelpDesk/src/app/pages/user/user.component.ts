@@ -38,7 +38,8 @@ export class UserComponent implements OnInit {
 
     this.userService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      const users = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let users = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(users);
       this.dataSource.sort = this.sort;
@@ -65,7 +66,8 @@ export class UserComponent implements OnInit {
     console.log(e);
     this.userService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      const users = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let users = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(users);

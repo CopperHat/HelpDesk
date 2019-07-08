@@ -18,6 +18,8 @@ import { TicketComponent } from './pages/ticket/ticket.component';
 import { TicketEdicionComponent } from './pages/ticket/ticket-edicion/ticket-edicion.component';
 import { UserComponent } from './pages/user/user.component';
 import { UserEdicionComponent } from './pages/user/user-edicion/user-edicion.component';
+import { LoginComponent } from './pages/login/login.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { UserEdicionComponent } from './pages/user/user-edicion/user-edicion.com
     TicketEdicionComponent,
     UserComponent,
     UserEdicionComponent,
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

@@ -38,7 +38,8 @@ export class StaffComponent implements OnInit {
 
     this.staffService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      const staffs = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let staffs = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(staffs);
       this.dataSource.sort = this.sort;
@@ -65,7 +66,8 @@ export class StaffComponent implements OnInit {
     console.log(e);
     this.staffService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      const staffs = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let staffs = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(staffs);

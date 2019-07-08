@@ -38,7 +38,8 @@ export class TicketComponent implements OnInit {
 
     this.ticketService.listarPageable(0, 10).subscribe(data => {
       console.log(data);
-      const tickets = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let tickets = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
       this.dataSource = new MatTableDataSource(tickets);
       this.dataSource.sort = this.sort;
@@ -65,7 +66,8 @@ export class TicketComponent implements OnInit {
     console.log(e);
     this.ticketService.listarPageable(e.pageIndex, e.pageSize).subscribe(data => {
       console.log(data);
-      const tickets = JSON.parse(JSON.stringify(data)).content;
+// tslint:disable-next-line: prefer-const
+      let tickets = JSON.parse(JSON.stringify(data)).content;
       this.cantidad = JSON.parse(JSON.stringify(data)).totalElements;
 
       this.dataSource = new MatTableDataSource(tickets);

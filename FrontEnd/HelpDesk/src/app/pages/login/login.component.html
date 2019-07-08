@@ -1,0 +1,15 @@
+<form class="example-container" [formGroup]="form" (ngSubmit)="checkLogin()" #frmLogin="ngForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Usuario" required formControlName="username">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Contraseña" required formControlName="password">
+    </mat-form-field>
+
+    <!-- <button mat-raised-button color="primary" type="submit" [disabled]="frmLogin.invalid">-->
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon>done</mat-icon>
+      <span>Login</span>
+    </button>
+  </form>
